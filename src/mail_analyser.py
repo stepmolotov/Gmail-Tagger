@@ -36,7 +36,7 @@ if __name__ == "__main__":
         id="XXXXXX",
         labels=["CATEGORY_PROMOTIONS", "UNREAD", "INBOX"],
         sender_email="newsletter@gamesplanet.com",
-        receiver_email="step.molotov+gamesplanet@gmail.com",
+        receiver_email="some_mail@gmail.com",
         time="Fri, 15 Mar 2024 11:13:14 +0000",
         subject="New but retro: Contra Operation Galuga (-20%), 🪖 Outcast 2 & SW Battlefront / Deals on Capcom, SEGA and more",
         snippet="Gamesplanet.com Facebook Twitter YouTube Pneumatic tube 15.03.2024 The classic platforming series returns with Contra: Operation Galuga Contra: Operation Galuga Contra: Operation Galuga Action / Arcade",
