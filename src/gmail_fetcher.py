@@ -10,9 +10,9 @@ from icecream import ic
 
 class GmailFetcher:
 
-    def __init__(self):
-        self._token_path = "token.json"
-        self._credentials_path = "credentials.json"
+    def __init__(self) -> None:
+        self._token_path = "../resources/token.json"
+        self._credentials_path = "../resources/credentials.json"
         self._scopes = ["https://www.googleapis.com/auth/gmail.readonly"]
         self._load_credentials()
 
@@ -50,7 +50,7 @@ class GmailFetcher:
             print(f"An error occurred: {error}")
             return []
 
-    def get_messages(self, limit) -> list[dict]:
+    def get_messages(self, limit: int) -> list[dict]:
         try:
             service = build("gmail", "v1", credentials=self._creds)
             res_list = service.users().messages().list(userId="me").execute()
