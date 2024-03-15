@@ -74,7 +74,9 @@ class GmailFetcher:
 
     def get_snippets(self, limit: int = 10) -> dict[str, str]:
         messages = self.get_messages(limit=limit)
-        return {message.get("id"): message.get("snippet") for message in messages}
+        return {
+            message.get("id", ""): message.get("snippet", "") for message in messages
+        }
 
 
 if __name__ == "__main__":
