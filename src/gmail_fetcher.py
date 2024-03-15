@@ -3,9 +3,9 @@ import os.path
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
+from google_auth_oauthlib.flow import InstalledAppFlow  # type: ignore
+from googleapiclient.discovery import build  # type: ignore
+from googleapiclient.errors import HttpError  # type: ignore
 from icecream import ic
 
 from models.email import Email
@@ -46,7 +46,14 @@ class GmailFetcher:
     def get_labels(self) -> list[str]:
         try:
             service = build("gmail", "v1", credentials=self._creds)
-            res_list = service.users().labels().list(userId="me").execute()
+            res_list = (
+                service.users()
+                .labels()
+                .list(
+                    userId="me", labelIds=["INBOX"], q="from:specific email, is:unread"
+                )
+                .execute()
+            )
             results = res_list.get("labels", [])
             return [res["name"] for res in results]
         except HttpError as error:
@@ -80,7 +87,7 @@ class GmailFetcher:
             return []
 
     def _parse_message(self, message: dict) -> Email:
-        id = message.get("id", "")
+        message_id = message.get("id", "")
         labels = message.get("labelIds", [])
         headers = message.get("payload", {}).get("headers", [])
         sender_email = ""
@@ -101,7 +108,7 @@ class GmailFetcher:
         text = base64.urlsafe_b64decode(payload.encode("ASCII")).decode("utf-8")
         size = message.get("sizeEstimate", -1)
         email = Email(
-            id=id,
+            id=message_id,
             labels=labels,
             sender_email=sender_email,
             receiver_email=receiver_email,
@@ -126,4 +133,4 @@ if __name__ == "__main__":
     fetcher = GmailFetcher()
     # ic(fetcher.get_labels())
     # ic(fetcher.get_snippets(limit=10))
-    ic(fetcher.get_emails(limit=1))
+    ic(fetcher.get_emails(limit=3))

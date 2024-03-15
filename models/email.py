@@ -4,15 +4,15 @@ from pydantic import BaseModel
 
 
 class Email(BaseModel):
-    id: Optional[str]  # The id of the email.
+    id: str  # The id of the email.
     labels: list[str]  # The labels of the email.
-    sender_email: Optional[str]  # The sender of the email.
-    receiver_email: Optional[str]  # The receiver of the email.
-    time: Optional[str]  # The time the email was sent.
-    subject: Optional[str]  # The subject of the email.
-    snippet: Optional[str]  # The snippet of the email.
-    text: Optional[str]  # The text of the email.
-    size: Optional[int]  # The size of the email.
+    sender_email: str  # The sender of the email.
+    receiver_email: str  # The receiver of the email.
+    time: str  # The time the email was sent.
+    subject: str  # The subject of the email.
+    snippet: str  # The snippet of the email.
+    text: str  # The text of the email.
+    size: int  # The size of the email.
 
 
 class EmailDetails(BaseModel):
