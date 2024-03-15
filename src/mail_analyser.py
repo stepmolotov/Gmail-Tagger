@@ -26,7 +26,9 @@ class MailAnalyser:
             EmailDetails,
             instructions="Get the top 5 keywords from the email text and identify sender and topic.",
         )
-        return email_details[0]
+        if email_details:
+            return email_details[0]
+        return EmailDetails(keywords=[], sender=None, topic=None)
 
 
 if __name__ == "__main__":
