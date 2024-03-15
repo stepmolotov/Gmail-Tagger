@@ -19,7 +19,7 @@ class MailAnalyser:
 
     def get_details(self, email: Email) -> EmailDetails:
         raw_input = (
-            f"Subject: {email.subject}\nSnippet:{email.snippet}\nText:{email.text}"
+            f"Subject:{email.subject}\nSnippet:{email.snippet}\nText:{email.text}"
         )
         email_details = marvin.extract(
             raw_input,
