@@ -20,7 +20,9 @@ class Config:
         filename = f".env.{environment}"
 
         if not os.path.exists(filename):
-            raise FileNotFoundError(f"Environment '{filename}' not found. Are you sure you're in the root directory?")
+            raise FileNotFoundError(
+                f"Environment '{filename}' not found. Are you sure you're in the root directory?"
+            )
 
         self.env_filename = filename
         load_dotenv(filename)
