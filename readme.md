@@ -8,7 +8,7 @@ For more information, check the following link: https://developers.google.com/gm
 
 **Installation**
 
-To install the requirements, run the following command:
+To install the requirements in a new conda environment, run the following command:
 ```bash
 conda create -n gmail python=3.11
 conda activate gmail
