@@ -31,11 +31,17 @@ class GmailFetcher:
             creds = Credentials.from_authorized_user_file(
                 self._token_path, self._scopes
             )
-        # If there are no (valid) credentials available, let the user log in.
+        # If there are no (valid) credentials available, log in is needed
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
             else:
+                if not os.path.exists(self._credentials_path):
+                    raise FileNotFoundError(
+                        f"Credentials file not found at '{self._credentials_path}'."
+                        f"Please provide a valid path to the credentials file"
+                        f"or create a new Google Cloud project and download the credentials file."
+                    )
                 flow = InstalledAppFlow.from_client_secrets_file(
                     self._credentials_path, self._scopes
                 )
@@ -72,7 +78,6 @@ class GmailFetcher:
             if not results:
                 print("No results found.")
                 return []
-            print(f"Results: {len(results)}")
             messages = []
             for res in results[:limit]:
                 message = (
