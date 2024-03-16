@@ -8,16 +8,18 @@ from googleapiclient.discovery import build  # type: ignore
 from googleapiclient.errors import HttpError  # type: ignore
 from icecream import ic
 
+from config import Config
 from models.email import Email
 from src.utils.text_cleaner import clean_text, parse_html
 
 
 class GmailFetcher:
 
-    def __init__(self) -> None:
-        self._token_path = "../resources/token.json"
-        self._credentials_path = "../resources/credentials.json"
-        self._scopes = ["https://www.googleapis.com/auth/gmail.readonly"]
+    def __init__(self, config: Config) -> None:
+        self._config = config
+        self._token_path = self._config.token_path
+        self._credentials_path = self._config.credentials_path
+        self._scopes = self._config.gmail_scopes
         self._load_credentials()
 
     def _load_credentials(self) -> None:
@@ -130,7 +132,8 @@ class GmailFetcher:
 
 
 if __name__ == "__main__":
-    fetcher = GmailFetcher()
+    config = Config()
+    fetcher = GmailFetcher(config=config)
     # ic(fetcher.get_labels())
     # ic(fetcher.get_snippets(limit=10))
     ic(fetcher.get_emails(limit=3))
